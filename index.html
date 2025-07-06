@@ -93,15 +93,9 @@
         0% {
           width: 0;
         }
-        40% {
-          width: 100%;
-        } /* Full name displayed */
-        60% {
-          width: 100%;
-        } /* Pause for ~1 second */
         100% {
-          width: 0;
-        } /* Reset to start */
+          width: 100%;
+        }
       }
       @keyframes blink-caret {
         from,
@@ -156,8 +150,8 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 0 40px rgba(0, 255, 204, 0.4);
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
       }
       .card h3 {
         font-family: "Orbitron", sans-serif;
@@ -187,10 +181,39 @@
         max-width: 700px;
         margin: auto;
       }
-      form {
+      #contact form {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 1px solid rgba(0, 255, 204, 0.3);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+      }
+      .form-group {
+        position: relative;
+      }
+      label {
+        font-family: "Exo 2", sans-serif;
+        color: #b0b0ff;
+        position: absolute;
+        top: 1.2rem;
+        left: 1rem;
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+      input:focus + label,
+      input:not(:placeholder-shown) + label,
+      textarea:focus + label,
+      textarea:not(:placeholder-shown) + label {
+        top: -0.5rem;
+        left: 0.8rem;
+        font-size: 0.9rem;
+        color: #00ffcc;
+        background: rgba(10, 10, 35, 0.8);
+        padding: 0 0.5rem;
       }
       input,
       textarea {
@@ -201,6 +224,7 @@
         color: #e0e0ff;
         font-family: "Exo 2", sans-serif;
         transition: border-color 0.3s, box-shadow 0.3s;
+        width: 100%;
       }
       input:focus,
       textarea:focus {
@@ -210,7 +234,7 @@
       }
       input::placeholder,
       textarea::placeholder {
-        color: #b0b0ff;
+        color: transparent;
       }
       button {
         padding: 1rem;
@@ -222,10 +246,47 @@
         font-weight: bold;
         cursor: pointer;
         transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
       }
       button:hover {
         transform: scale(1.05);
         box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      button::after {
+        content: "Sending...";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+      }
+      button.loading::after {
+        opacity: 1;
+      }
+      button.loading span {
+        opacity: 0;
+      }
+      .form-message {
+        text-align: center;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        display: none;
+      }
+      .form-message.success {
+        background: rgba(0, 255, 204, 0.2);
+        color: #00ffcc;
+        display: block;
+      }
+      .form-message.error {
+        background: rgba(255, 85, 85, 0.2);
+        color: #ff5555;
+        display: block;
       }
       footer {
         text-align: center;
@@ -260,6 +321,9 @@
         section {
           padding: 3rem 1rem;
         }
+        #contact form {
+          padding: 1.5rem;
+        }
         .hamburger {
           display: block;
         }
@@ -291,13 +355,13 @@
     <nav>
       <button class="hamburger">☰</button>
       <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#live-demo">Live Demo</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home" aria-label="Go to Home section">Home</a></li>
+        <li><a href="#services" aria-label="Go to Services section">Services</a></li>
+        <li><a href="#projects" aria-label="Go to Projects section">Projects</a></li>
+        <li><a href="#skills" aria-label="Go to Skills section">Skills</a></li>
+        <li><a href="#live-demo" aria-label="Go to Live Demo section">Live Demo</a></li>
+        <li><a href="#testimonials" aria-label="Go to Testimonials section">Testimonials</a></li>
+        <li><a href="#contact" aria-label="Go to Contact section">Contact</a></li>
       </ul>
     </nav>
     <header id="home">
@@ -337,23 +401,25 @@
       <div class="card">
         <h3>AI-Powered Analytics Platform</h3>
         <p>
-          A scalable platform for real-time data analysis using Python and
-          Django.
+          Built an AI-powered analytics platform using Python, Django, and
+          Pandas to process real-time sales data, reducing report generation
+          time by 40%. <a href="#" target="_blank">[View on GitHub]</a>
         </p>
       </div>
       <div class="card">
         <h3>Academic AI-Powered Study Assistant</h3>
         <p>
-          A powerful academic AI Languange Model Tool that will provide students with deep
-          academic understanding of their academic verified lecturing
-          information respective to the student learning institution.
+          Developed a language model tool to assist students with academic
+          content, leveraging verified lecturing information from their
+          institution. <a href="#" target="_blank">[Live Demo]</a>
         </p>
       </div>
       <div class="card">
         <h3>Full-Stack E-Commerce Solution</h3>
         <p>
-          A modern e-commerce site with React, Node.js, Express, and MySQL
-          integration.
+          Created a modern e-commerce site using React, Node.js, Express, and
+          MySQL, featuring real-time inventory updates and secure payments.
+          <a href="#" target="_blank">[View Project]</a>
         </p>
       </div>
     </section>
@@ -382,123 +448,169 @@
         >
       </div>
     </section>
-
     <section id="testimonials" class="fadeIn">
       <h2>Client Testimonials</h2>
       <div class="card">
         <p>
-          "Chimuka Mukwenya delivered an exceptional AI solution that
-          transformed our business operations."
+          "Chimuka delivered an exceptional AI solution that transformed our
+          business operations."
         </p>
-        <cite>- Chimuka Mukwenya</cite>
+        <cite>- Client Name, Company</cite>
       </div>
       <div class="card">
         <p>
           "The website he built was not only stunning but also incredibly
           user-friendly."
         </p>
-        <cite>- Chimuka Mukwenya</cite>
+        <cite>- Client Name, Company</cite>
       </div>
     </section>
     <section id="contact" class="fadeIn">
       <h2>Contact Me</h2>
-      <form
-        id="contact-form"
-        onsubmit="event.preventDefault(); handleSubmit();"
-      >
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea
-          rows="5"
-          name="message"
-          placeholder="Your Message"
-          required
-          minlength="30"
-        ></textarea>
-        <button type="submit">Send Message</button>
+      <form id="contact-form">
+        <div class="form-group">
+          <input type="text" id="name" name="name" placeholder="Your Name" required />
+          <label for="name">Your Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder="Your Email" required />
+          <label for="email">Your Email</label>
+        </div>
+        <div class="form-group">
+          <textarea
+            id="message"
+            rows="5"
+            name="message"
+            placeholder="Your Message"
+            required
+            minlength="30"
+          ></textarea>
+          <label for="message">Your Message</label>
+        </div>
+        <button type="submit"><span>Send Message</span></button>
+        <div class="form-message" id="form-message"></div>
       </form>
     </section>
     <footer>
       <div class="copyright-container">
-        <img src="./copyright.jpg" alt="" />
+        <img src="./copyright.jpg" alt="Copyright Image" />
       </div>
       <p>© 2025 Chimuka Mukwenya. All rights reserved.</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-      // Particle Background
-      particlesJS("particles", {
-        particles: {
-          number: { value: 80, density: { enable: true, value_area: 800 } },
-          color: { value: ["#00ffcc", "#ff00ff", "#b0b0ff"] },
-          shape: { type: "circle" },
-          opacity: { value: 0.5, random: true },
-          size: { value: 3, random: true },
-          line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#00ffcc",
-            opacity: 0.4,
-            width: 1,
-          },
-          move: { enable: true, speed: 2, direction: "none", random: true },
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: { enable: true, mode: "repulse" },
-            onclick: { enable: true, mode: "push" },
-          },
-          modes: { repulse: { distance: 100 }, push: { particles_nb: 4 } },
-        },
+  // Particle Background
+  particlesJS("particles", {
+    particles: {
+      number: { value: 40, density: { enable: true, value_area: 800 } },
+      color: { value: ["#00ffcc", "#ff00ff", "#b0b0ff"] },
+      shape: { type: "circle" },
+      opacity: { value: 0.5, random: true },
+      size: { value: 3, random: true },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#00ffcc",
+        opacity: 0.4,
+        width: 1,
+      },
+      move: { enable: true, speed: 2, direction: "none", random: true },
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "repulse" },
+        onclick: { enable: true, mode: "push" },
+      },
+      modes: { repulse: { distance: 100 }, push: { particles_nb: 4 } },
+    },
+  });
+
+  // Scroll Animations
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
       });
+    },
+    { threshold: 0.2 }
+  );
 
-      // Scroll Animations
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-            }
-          });
-        },
-        { threshold: 0.2 }
-      );
+  document.querySelectorAll(".fadeIn").forEach((el) => observer.observe(el));
 
-      document
-        .querySelectorAll(".fadeIn")
-        .forEach((el) => observer.observe(el));
+  // Hamburger Menu Toggle
+  const hamburger = document.querySelector(".hamburger");
+  const navUl = document.querySelector("nav ul");
+  hamburger.addEventListener("click", () => {
+    navUl.classList.toggle("active");
+    hamburger.textContent = navUl.classList.contains("active") ? "✕" : "☰";
+  });
 
-      // Hamburger Menu Toggle
-      const hamburger = document.querySelector(".hamburger");
-      const navUl = document.querySelector("nav ul");
-      hamburger.addEventListener("click", () => {
-        navUl.classList.toggle("active");
-        hamburger.textContent = navUl.classList.contains("active") ? "✕" : "☰";
-      });
+  // Form Submission
+  document.getElementById("contact-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    const button = form.querySelector("button");
+    const formMessage = document.getElementById("form-message");
+    let valid = true;
 
-      // Form Submission
-      function handleSubmit() {
-        const form = document.getElementById("contact-form");
-        const inputs = form.querySelectorAll("input, textarea");
-        let valid = true;
+    // Reset previous messages
+    formMessage.className = "form-message";
+    formMessage.textContent = "";
 
-        inputs.forEach((input) => {
-          if (!input.value) {
-            input.style.borderColor = "#ff5555";
-            valid = false;
-          } else {
-            input.style.borderColor = "#00ffcc";
-          }
+    // Validate inputs
+    if (!name || !email || !message) {
+      valid = false;
+      if (!name) form.name.style.borderColor = "#ff5555";
+      if (!email) form.email.style.borderColor = "#ff5555";
+      if (!message) form.message.style.borderColor = "#ff5555";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      form.email.style.borderColor = "#ff5555";
+      valid = false;
+    } else {
+      form.name.style.borderColor = "#00ffcc";
+      form.email.style.borderColor = "#00ffcc";
+      form.message.style.borderColor = "#00ffcc";
+    }
+
+    if (valid) {
+      button.disabled = true;
+      button.classList.add("loading");
+      try {
+        const response = await fetch("http://localhost:3000/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, message }),
         });
-
-        if (valid) {
-          alert("In Development, Thank you for your message!");
+        const result = await response.text();
+        if (response.status === 200) {
+          formMessage.textContent = "Thank you for your message! I'll get back to you soon.";
+          formMessage.className = "form-message success";
           form.reset();
         } else {
-          alert("Please fill out all fields.");
+          formMessage.textContent = `Failed to send message: ${result}`;
+          formMessage.className = "form-message error";
         }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        formMessage.textContent = "Error sending message. Please try again later.";
+        formMessage.className = "form-message error";
+      } finally {
+        button.disabled = false;
+        button.classList.remove("loading");
       }
-    </script>
+    } else {
+      formMessage.textContent = "Please fill out all fields correctly.";
+      formMessage.className = "form-message error";
+    }
+  });
+</script>
   </body>
 </html>
